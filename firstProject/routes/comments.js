@@ -4,7 +4,6 @@ import authMiddleware from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Get comments for a post
 router.get('/:postId', async (req, res) => {
   try {
     const comments = await Comment.find({ post: req.params.postId })
@@ -17,7 +16,6 @@ router.get('/:postId', async (req, res) => {
   }
 });
 
-// Create a comment for a post
 router.post('/:postId', authMiddleware, async (req, res) => {
   const { text } = req.body;
   if (!text) {
