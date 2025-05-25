@@ -16,7 +16,6 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
-// Get all posts
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.find().populate('author', 'username').sort({ createdAt: -1 });
@@ -26,7 +25,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create post with image upload
 router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
   const { title, content } = req.body;
   try {
@@ -44,7 +42,6 @@ router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
   }
 });
 
-// Get single post
 router.get('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate('author', 'username');
@@ -55,7 +52,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// NEW: Get posts by logged-in user
 router.get('/myblogs', authMiddleware, async (req, res) => {
   try {
     const myPosts = await Post.find({ author: req.user._id })
