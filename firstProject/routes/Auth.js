@@ -5,7 +5,6 @@ import authMiddleware from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Register
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -25,7 +24,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -42,7 +40,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Get current user profile
 router.get('/profile', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('-password');
